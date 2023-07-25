@@ -3,7 +3,7 @@ from sqlalchemy.sql import func
 from sqlalchemy.dialects.mysql import TINYINT
 from app.models.base import BaseModel
 from pydantic import BaseModel as PydanticBaseModel
-
+from sqlalchemy.orm import relationship
 class User(BaseModel):
     __tablename__ = "users"
 
@@ -14,6 +14,7 @@ class User(BaseModel):
     isitan_administrator = Column(Boolean, default=False, nullable=False)
     user_status = Column(TINYINT, nullable=False)
     created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+    subscriptions = relationship('Subscription', back_populates='user', lazy='joined')
 
 class UserCreate(PydanticBaseModel):
     user_name: str

@@ -9,7 +9,7 @@ from app.core.auth import create_access_token
 from app.config import settings
 router = APIRouter()
 
-@router.post("/server/web/register")
+@router.post("/server/user/register")
 def register(usercreate:UserCreate, db: Session = Depends(get_db)):
     print(usercreate.user_name)
     userservice = UserService(db)
@@ -19,7 +19,7 @@ def register(usercreate:UserCreate, db: Session = Depends(get_db)):
     user = userservice.create_user(obj_in=usercreate)
     return {"code": 200, "msg": "ok"}
 
-@router.post("/server/web/login/token")
+@router.post("/server/user/login/token")
 def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     user = UserService.authenticate_user(form_data.username, form_data.password)
     if not user:
@@ -32,3 +32,4 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depend
         subject={"sub": user.user_name}, expires_delta=access_token_expires
     )
     return {"access_token": access_token, "token_type": "bearer"}
+

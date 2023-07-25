@@ -16,6 +16,3 @@ class LinksCreate(PydanticBaseModel):
     
 # class LinksDelete(PydanticBaseModel):
 #     id:int
-    
-
-    
