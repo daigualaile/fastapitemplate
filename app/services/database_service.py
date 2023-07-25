@@ -6,6 +6,7 @@ class DatabaseService:
         self.db = db
 
     def create(self, obj_in):
+        print(obj_in)
         db_obj = self.model(**obj_in)
         self.db.add(db_obj)
         self.db.commit()

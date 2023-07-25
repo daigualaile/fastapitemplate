@@ -8,15 +8,15 @@ class Links(BaseModel):
     
 
 class LinksCreate(PydanticBaseModel):
-    title:str
+    # title:str
     url:str
 
-class LinksUpdate(PydanticBaseModel):
-    title:str
-    url:str
+# class LinksUpdate(PydanticBaseModel):
+#     title:str
+#     url:str
     
-class LinksDelete(PydanticBaseModel):
-    id:int
+# class LinksDelete(PydanticBaseModel):
+#     id:int
     
 
     

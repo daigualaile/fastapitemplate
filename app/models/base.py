@@ -8,4 +8,4 @@ class BaseModel(Base):
     __abstract__ = True  # 声明这是一个抽象类
 
     id = Column(Integer, primary_key=True, index=True)
-    created_at = Column(DateTime)
+    created_at = Column(DateTime, default=datetime.datetime.utcnow) 
