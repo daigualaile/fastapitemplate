@@ -8,7 +8,6 @@ class Links(BaseModel):
     
 
 class LinksCreate(PydanticBaseModel):
-    # title:str
     url:str
 
 # class LinksUpdate(PydanticBaseModel):
