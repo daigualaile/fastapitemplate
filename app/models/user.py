@@ -6,7 +6,7 @@ from pydantic import BaseModel as PydanticBaseModel
 from sqlalchemy.orm import relationship
 class User(BaseModel):
     __tablename__ = "users"
-
+    
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     user_name = Column(String(255), unique=True, nullable=False)
     user_password = Column(String(255), nullable=False)
