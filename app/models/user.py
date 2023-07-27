@@ -19,3 +19,9 @@ class User(BaseModel):
 class UserCreate(PydanticBaseModel):
     user_name: str
     user_password: str
+    
+class PasswordChangeRequest(PydanticBaseModel):
+    id: int
+    username: str
+    current_password: str
+    new_password: str

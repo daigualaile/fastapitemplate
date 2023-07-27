@@ -1,6 +1,6 @@
 from datetime import timedelta
 from fastapi import APIRouter, Depends, HTTPException
-from app.models.user import UserCreate
+from app.models.user import PasswordChangeRequest, UserCreate
 from app.services.user_service import UserService
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session  # 导入 Session
@@ -32,4 +32,17 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depend
         subject={"sub": user.user_name}, expires_delta=access_token_expires
     )
     return {"access_token": access_token, "token_type": "bearer","info":{"id":user.id,"name":user.user_name}}
+
+
+@router.post("/server/user/change_password")
+def change_password(request: PasswordChangeRequest, db: Session = Depends(get_db)):
+    # 创建user_service的实例
+    user_service = UserService(db)
+    # 调用change_password方法，传入请求参数
+    result = user_service.change_password(request.id, request.username, request.current_password, request.new_password)
+    if not result:
+        # 如果结果为False，抛出异常
+        raise HTTPException(status_code=400, detail="Invalid user or password")
+    # 返回成功的响应
+    return {"code": 200, "message": "Password changed successfully"}
 

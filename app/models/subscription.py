@@ -1,11 +1,8 @@
 from sqlalchemy import Column, ForeignKey, Integer, String, Date
 from sqlalchemy.ext.declarative import declarative_base
 from pydantic import BaseModel as PydanticBaseModel
-from sqlalchemy.sql.sqltypes import Enum
-from enum import Enum as PyEnum
 from sqlalchemy.orm import relationship
 from app.models.base import BaseModel
-from app.models.user import User
 
 Base = declarative_base()
 

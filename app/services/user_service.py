@@ -33,3 +33,19 @@ class UserService(DatabaseService):
         if not pwd_context.verify(password, user.user_password):
             return False
         return user
+    
+    def change_password(self, id: int, username: str, current_password: str, new_password: str) -> bool:
+    # 根据id和username查询用户是否存在
+        user = self.db.query(self.model).filter(self.model.id == id, self.model.user_name == username).first()
+        if not user:
+            # 如果用户不存在，返回False
+            return False
+        # 根据current_password验证用户是否正确
+        if not pwd_context.verify(current_password, user.user_password):
+            # 如果密码不正确，返回False
+            return False
+        # 根据new_password更新用户的密码
+        user.user_password = pwd_context.hash(new_password)
+        self.db.commit()
+        # 返回True
+        return True

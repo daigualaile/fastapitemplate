@@ -4,7 +4,7 @@ from fastapi import APIRouter
 from sqlalchemy.orm import Session
 from app.core.auth import get_current_user
 from app.db.session import get_db
-from app.models.subscription import CreatSub, Subscription  # 导入 Session
+from app.models.subscription import CreatSub  # 导入 Session
 from app.services.sub_service import SubService
 
 router = APIRouter()
