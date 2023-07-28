@@ -17,15 +17,15 @@ def register(usercreate:UserCreate, db: Session = Depends(get_db)):
     if(is_registered):
         return {"code": 400, "msg": "用户名已存在"}
     user = userservice.create_user(obj_in=usercreate)
-    return {"code": 200, "msg": "ok"}
+    return {"code": 200, "msg": "创建成功"}
 
 @router.post("/server/user/login/token")
 def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     user = UserService.authenticate_user(form_data.username, form_data.password)
     if not user:
         raise HTTPException(
-            status_code=400,
-            detail="Incorrect username or password",
+            code=400,
+            detail="用户名或密码不正确",
         )
     access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = create_access_token(
@@ -44,5 +44,5 @@ def change_password(request: PasswordChangeRequest, db: Session = Depends(get_db
         # 如果结果为False，抛出异常
         raise HTTPException(status_code=400, detail="Invalid user or password")
     # 返回成功的响应
-    return {"code": 200, "message": "Password changed successfully"}
+    return {"code": 200, "message": "用户名修改成功"}
 

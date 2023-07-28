@@ -11,6 +11,7 @@ router = APIRouter()
 
 @router.post("/server/admin/login/token")
 def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+    # print(form_data)
     admin = AdminService.authenticate_admin(form_data.username, form_data.password)
     
     if not admin:
@@ -22,7 +23,7 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depend
     access_token = create_access_token(
         subject={"sub": admin.admin_name}, expires_delta=access_token_expires
     )
-    return {"access_token": access_token, "token_type": "bearer"}
+    return {"access_token": access_token, "token_type": "bearer","admin":admin}
 
 @router.post("/server/admin/register")
 def register(admincreate:AdminCreate, db: Session = Depends(get_db)):
